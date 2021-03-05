@@ -8,7 +8,10 @@ $(document).ready(() =>
 
 
 function analize(data){
-    alert(data);
-    //TO DO: find url in the list with small diff with the current page
+
+    alert(data)
+    //send urls as a message to the background script, get the matching htmls as a response
+
+    //find an html with a small diff with the current page
     //If found one, deter the user
 }
