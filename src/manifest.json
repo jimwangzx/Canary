@@ -1,0 +1,17 @@
+{
+    "name":"Canary",
+    "version":"1.0",
+    "manifest_version":2,
+    
+    "web_accessible_resources": [
+        "data/*"
+    ],
+
+    "content_scripts":[
+        {
+            "matches":["<all_urls>"],
+            "js": ["resources/jquery.min.js", "content.js"]
+        }
+    ]
+   
+}
