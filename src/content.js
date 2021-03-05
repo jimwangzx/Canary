@@ -2,10 +2,9 @@ console.log(0);
 
 var listURL = chrome.runtime.getURL("data/list.db");
 
-$(document).ready(function(){
-$.get(listURL,function (data){
-    analize(data);
-})})
+$(document).ready(() => 
+    $.get(listURL).then(data => analize(data))
+)
 
 
 function analize(data){
