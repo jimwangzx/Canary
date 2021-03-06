@@ -8,7 +8,11 @@ $(document).ready(() =>
 
 function analize(data){
 
-    chrome.runtime.sendMessage(JSON.parse(data),(response)=>console.log(response))//TODO: shoud print the same as in background
+    chrome.runtime.sendMessage(JSON.parse(data),(response)=>{
+        console.log(response)
+        console.log(typeof response)
+        response.then((result)=>console.log(result));
+    })
     //send urls as a message to the background script, get the matching htmls as a response
 
     //find an html with a small diff with the current page

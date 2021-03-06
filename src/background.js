@@ -9,5 +9,11 @@ chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         p.then((html)=>result[siteT] = html);
         promises.push(p);
     }
-    Promise.all(promises).then(() =>{console.log(result); sendResponse(result)})
+
+    sendResponse(new Promise((resolve,reject)=>{
+        Promise.all(promises).then(() =>{
+            resolve(result);
+        });
+    }));
+    
 })
