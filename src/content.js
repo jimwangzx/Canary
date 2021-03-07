@@ -1,16 +1,14 @@
 
-var listURL = chrome.runtime.getURL("data/list.db");
+var listURL = chrome.runtime.getURL("data/htmls.json");
 
 $(document).ready(() => 
-    $.get(listURL).then(data => analize(JSON.parse(data)))
+    $.get(listURL).then(data => analize(data))
 )
 
 
 function analize(data){
-
-
-
-    //send urls as a message to the background script, get the matching htmls as a response
+    
+    //base64 decode values inside the json input 
 
     //find an html with a small diff with the current page
     //If found one, deter the user
