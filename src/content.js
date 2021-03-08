@@ -8,8 +8,25 @@ $(document).ready(() =>
 
 function analize(data){
     
-    //base64 decode values inside the json input 
+    currentHTML = document.all[0].outerHTML;
 
-    //find an html with a small diff with the current page
+    let minDiff = Number.MAX_VALUE;
+    let minDiffSite = undefined;
+
+    for(let site in data){
+        html = atob(data[site])
+        let diff = diff(html,currentHTML);
+        
+        if(diff < minDiff){
+            minDiff=diff;
+            minDiffSite=site;
+        }
+
+    }
+
     //If found one, deter the user
+}
+
+function diff(html1,html2){
+
 }
