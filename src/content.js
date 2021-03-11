@@ -16,21 +16,19 @@ function _diff(html1,html2){
 function analize(data){
     
     currentHTML = document.all[0].outerHTML;
-
-    let minDiff = Number.MAX_VALUE;
-    let minDiffSite = undefined;
+    
+    let min = { diff:Number.MAX_VALUE , site:undefined };
 
     for(let site in data){
+
         html = atob(data[site])
         let diff = _diff(html,currentHTML);
         
-        if(diff < minDiff){
-            minDiff=diff;
-            minDiffSite=site;
-        }
+        if(diff < minDiff)
+            min = {diff:diff,site:site};
 
     }
 
-    console.log(`The current page is like ${minDiffSite}. There are ${diff} lines different`)
+    console.log(`The current page is like ${min.site}. There are ${min.diff} lines different`)
 }
 
