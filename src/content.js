@@ -1,3 +1,4 @@
+const Diff = require('diff')
 
 var listURL = chrome.runtime.getURL("data/htmls.json");
 
@@ -6,7 +7,7 @@ $(document).ready(() =>
 )
 
 
-function diff(html1,html2){
+function _diff(html1,html2){
 
 }
 
@@ -19,7 +20,7 @@ function analize(data){
 
     for(let site in data){
         html = atob(data[site])
-        let diff = diff(html,currentHTML);
+        let diff = _diff(html,currentHTML);
         
         if(diff < minDiff){
             minDiff=diff;

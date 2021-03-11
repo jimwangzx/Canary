@@ -11,7 +11,7 @@
     "content_scripts":[
         {
             "matches":["<all_urls>"],
-            "js": ["resources/jquery.min.js", "content.js"]
+            "js": ["resources/jquery.min.js", "build/output/content.js"]
         }
     ],
 
