@@ -6,6 +6,10 @@ $(document).ready(() =>
 )
 
 
+function diff(html1,html2){
+
+}
+
 function analize(data){
     
     currentHTML = document.all[0].outerHTML;
@@ -27,6 +31,3 @@ function analize(data){
     //If found one, deter the user
 }
 
-function diff(html1,html2){
-
-}

@@ -6,6 +6,7 @@
 
 local/
 
+
 # User-specific files
 *.rsuser
 *.suo
