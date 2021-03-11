@@ -8,6 +8,8 @@ $(document).ready(() =>
 
 
 function _diff(html1,html2){
+    result = Diff.diffLines(html1,html2);
+    //convert the json array to a result number
 
 }
 
@@ -29,6 +31,6 @@ function analize(data){
 
     }
 
-    //If found one, deter the user
+    console.log(`The current page is like ${minDiffSite}. There are ${diff} lines different`)
 }
 
