@@ -39,7 +39,8 @@ function analize(data){
 
     }
 
-    NotifyUser(`The current page is like ${min.site}. There are ${min.diff} lines different`);
+    if(min.diff < 150)
+        NotifyUser(`The current page is like ${min.site}. There are ${min.diff} lines different`);
 }
 
 const currentURL = window.location.href;
