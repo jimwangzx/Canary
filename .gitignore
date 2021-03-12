@@ -5,7 +5,7 @@
 
 
 local/
-build/
+src/build/
 
 
 # User-specific files
