@@ -4,7 +4,7 @@
   "description": "",
   "main": "content.js",
   "scripts": {
-    "build":"parcel build content.js -d build/output",
+    "build":"parcel build src/content.js -d src/build/output",
     "initdb":"python resources/initDB.py"
   },
   "keywords": [],
