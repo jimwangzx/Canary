@@ -1,4 +1,5 @@
 #TODO:
 
-- [ ] set an effective threshold
-- [ ] change the notification function
+- [ ] Set an effective threshold
+- [ ] Change the notification function
+- [ ] Fill the htmls database
