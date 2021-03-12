@@ -1,6 +1,6 @@
 const Diff = require('diff')
 
-var listURL = chrome.runtime.getURL("data/htmls.json");
+var listURL = chrome.runtime.getURL("data/result.json");
 
 $(document).ready(() => 
     $.get(listURL).then(data => analize(data))
@@ -8,9 +8,14 @@ $(document).ready(() =>
 
 
 function _diff(html1,html2){
-    result = Diff.diffLines(html1,html2);
-    //convert the json array to a result number
-
+    d = Diff.diffLines(html1,html2);
+    
+    result = 0;
+    d.forEach(element => {
+        if(element.added || element.removed)
+            result += element.count;
+    });
+    return result;
 }
 
 function analize(data){
@@ -23,8 +28,10 @@ function analize(data){
 
         html = atob(data[site])
         let diff = _diff(html,currentHTML);
-        
-        if(diff < minDiff)
+
+        console.log(diff)
+
+        if(diff < min.diff)
             min = {diff:diff,site:site};
 
     }
