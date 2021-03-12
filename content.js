@@ -1,25 +1,28 @@
-const Diff = require('diff')
+const myDiff = require('./myDiff')
 
-var listURL = chrome.runtime.getURL("data/result.json");
+notified = false;
+function NotifyUser(message){
+    if(notified) return;
+    notified=true;
 
-$(document).ready(() => 
-    $.get(listURL).then(data => analize(data))
-)
+    alert(message);
+}
 
+function checkDomain(domain){
+    chrome.runtime.sendMessage({domain: domain}, function(response) {
+        if(response === true)
+            NotifyUser('The current website have been reported as a DANGEROUS one, beware.');
+      });
+}
 
-function _diff(html1,html2){
-    d = Diff.diffLines(html1,html2);
-    
-    result = 0;
-    d.forEach(element => {
-        if(element.added || element.removed)
-            result += element.count;
-    });
-    return result;
+function checkHTMLDiff(){
+    var listURL = chrome.runtime.getURL("data/result.json");
+    $(document).ready(() => 
+        $.get(listURL).then(data => analize(data))
+    )
 }
 
 function analize(data){
-    
     currentHTML = document.all[0].outerHTML;
     
     let min = { diff:Number.MAX_VALUE , site:undefined };
@@ -27,7 +30,7 @@ function analize(data){
     for(let site in data){
 
         html = atob(data[site])
-        let diff = _diff(html,currentHTML);
+        let diff = myDiff(html,currentHTML);
 
         console.log(diff)
 
@@ -36,6 +39,16 @@ function analize(data){
 
     }
 
-    console.log(`The current page is like ${min.site}. There are ${min.diff} lines different`)
+    NotifyUser(`The current page is like ${min.site}. There are ${min.diff} lines different`);
 }
+
+const currentURL = window.location.href;
+let domain = (new URL(currentURL)).hostname;
+checkDomain(domain)
+checkHTMLDiff();
+
+
+
+
+
 
