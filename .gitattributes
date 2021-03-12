@@ -1,2 +1,2 @@
-src/data/* linguist-detectable=false
-src/resources/* linguist-detectable=false
+data/* linguist-detectable=false
+resources/* linguist-detectable=false
