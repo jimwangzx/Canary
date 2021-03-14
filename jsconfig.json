@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        // "checkJs": true,
+        "types": [
+            "chrome",
+            "jquery",
+        ],
+        "target": "esnext",
+        "moduleResolution": "node",
+    }
+}
