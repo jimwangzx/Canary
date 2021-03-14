@@ -1,4 +1,3 @@
-const myDiff = require('./myDiff')
 
 notified = false;
 function NotifyUser(message){
@@ -9,8 +8,12 @@ function NotifyUser(message){
 }
 
 function checkDomain(domain){
-    chrome.runtime.sendMessage({domain: domain}, function(response) {
-        if(response === true)
+
+    chrome.runtime.sendMessage({
+        op:"checkDomain",
+        params:{domain: domain}}
+        , response => {
+        if(response)
             NotifyUser('The current website have been reported as a DANGEROUS one, beware.');
       });
 }
@@ -23,24 +26,16 @@ function checkHTMLDiff(){
 }
 
 function analize(data){
-    currentHTML = document.all[0].outerHTML;
-    
-    let min = { diff:Number.MAX_VALUE , site:undefined };
+    currentHTML = document.documentElement.innerHTML;
 
-    for(let site in data){
+    chrome.runtime.sendMessage({
+        op:"checkHTMLDiff",
+        params:{currentHTML:currentHTML ,data: data}
+    }, response => {
+        if(response)
+            NotifyUser(response);
+      });
 
-        html = atob(data[site])
-        let diff = myDiff(html,currentHTML);
-
-        console.log(diff)
-
-        if(diff < min.diff)
-            min = {diff:diff,site:site};
-
-    }
-
-    if(min.diff < 150)
-        NotifyUser(`The current page is like ${min.site}. There are ${min.diff} lines different`);
 }
 
 const currentURL = window.location.href;

@@ -16,7 +16,7 @@
     ],
     
     "background": {
-        "scripts":["resources/jquery.min.js", "background.js"]
+        "scripts":["resources/jquery.min.js", "build/background.js"]
     },
 
 

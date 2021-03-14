@@ -1,11 +1,17 @@
 {
-  
   "scripts": {
-    "build":"parcel build content.js -d build",
-    "initdb":"python resources/initDB.py"
+    "build": "parcel build content.js -d build",
+    "buildBackgound": "parcel build background.js -d build",
+    "initdb": "python resources/initDB.py"
   },
-  
   "dependencies": {
     "diff": "^5.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
   }
 }
