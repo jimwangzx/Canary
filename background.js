@@ -1,37 +1,32 @@
-const myDiff = require('./myDiff')
+const myDiff = require('./myDiff');
 
 let PhishingDomainsURL = 'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt';
-PhishingDomains = undefined
+let PhishingDomains = null;
 $.get(PhishingDomainsURL).then(domainsResponse => PhishingDomains = domainsResponse.split(/\r?\n/));
 
-function checkDomain(params,sendResponse){
-    domain = params.domain
-    domain = domain.replace(/^(www\.)/,"");//remove www. at the start
+function checkDomain({ domain }, sendResponse) {
+    domain = domain.replace(/^(www\.)/, "");//remove www. at the start
     sendResponse(PhishingDomains.includes(domain));
 }
-function checkHTMLDiff(params,sendResponse){
-    currentHTML = params.currentHTML;
-    data = params.data;
 
-    let min = { diff:Number.MAX_VALUE , site:undefined };
+function checkHTMLDiff({ currentHTML, data }, sendResponse) {
+    let min = { diff: Number.MAX_VALUE, site: null };
 
-    for(let site in data){
+    for (let site in data) {
 
-        html = atob(data[site])
-        let diff = myDiff(html,currentHTML);
+        const html = atob(data[site]);
+        let diff = myDiff(html, currentHTML);
 
-        if(diff < min.diff)
-            min = {diff:diff,site:site};
+        if (diff < min.diff)
+            min = { diff, site };
 
     }
 
-    if(min.diff < 150)
+    if (min.diff < 150)
         sendResponse(`The current page is like ${min.site}. There are ${min.diff} lines different`);
 }
 
-operations = {"checkDomain":checkDomain,"checkHTMLDiff":checkHTMLDiff}
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        operations[request.op](request.params,sendResponse);
-    }
-  );
+const operations = { "checkDomain": checkDomain, "checkHTMLDiff": checkHTMLDiff };
+chrome.runtime.onMessage.addListener(({ op, params }, sender, sendResponse) => {
+    operations[op](params, sendResponse);
+});

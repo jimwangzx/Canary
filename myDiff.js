@@ -1,16 +1,8 @@
-const Diff = require('diff');
+const { diffLines } = require('diff');
 require("babel-core/register");
 require("babel-polyfill");
 
-function _diff(html1,html2){
-    d = Diff.diffLines(html1,html2);
-    
-    result = 0;
-    d.forEach(element => {
-        if(element.added || element.removed)
-            result += element.count;
-    });
-    return result;
-}
-
-module.exports = _diff;
+module.exports = (html1, html2) => diffLines(html1, html2)
+    .filter(change => change.added || change.removed)
+    .map(change => change.count)
+    .reduce((a, b) => a + b, 0);
